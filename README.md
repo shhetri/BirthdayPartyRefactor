@@ -11,3 +11,17 @@ functionality (unless you consider tests additional functionality), we're just c
 Running the application: `gradle build test run`
 
 All output is written to the console.
+
+### Problems I found in the code
+
+* Spelling mistake and inconsistent case of frosting flavor's value.
+* `orderCake` method had incorrect placement of flavor and frosting flavor.
+* Balloon quantity number was a string instead of int.
+* The static methods in `App` are very hard to test.
+
+### Fixes I applied
+
+* Created `enums` for different properties of Cake and Balloon to avoid spelling and case mistakes.
+It also restricts the user from provided only supported values.
+* Refactored code into small testable classes.
+* Changed the balloon quantity number to `int`   
