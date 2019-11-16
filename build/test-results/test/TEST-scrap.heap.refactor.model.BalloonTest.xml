@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="scrap.heap.refactor.model.BalloonTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-11-16T09:18:40" hostname="shhetri.local" time="0.001">
+  <properties/>
+  <testcase name="testBalloonBuilderCorrectlyBuildsBalloon" classname="scrap.heap.refactor.model.BalloonTest" time="0.001"/>
+  <testcase name="testItReturnsCorrectOrderData" classname="scrap.heap.refactor.model.BalloonTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

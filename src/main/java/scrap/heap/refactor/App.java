@@ -1,38 +1,68 @@
 package scrap.heap.refactor;
 
+import scrap.heap.refactor.dispatcher.IOrderDispatcher;
+import scrap.heap.refactor.dispatcher.OrderDispatcherFactory;
+import scrap.heap.refactor.model.Balloon;
+import scrap.heap.refactor.model.Cake;
+import scrap.heap.refactor.model.Orderable;
+import scrap.heap.refactor.processor.OrderProcessor;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-
     public static void main(String[] args) {
+        IOrderDispatcher orderDispatcher = OrderDispatcherFactory.getDispatcher(OrderDispatcherFactory.Type.DEFAULT);
 
-         //Place birthday party orders
-         order("red", "mylar", "4", "chocolate", "chocolate", "circle", "large", "brown" );
-         order("blue", "latex", "7", "Vanilla", "chocelate", "square", "med", "brown" );
-         order("yellow", "mylar", "4", "vanilla", "vanilla", "square", "small", "yellow" );
+        Orderable smallVanillaCake = new Cake.Builder()
+                .setFlavor(Cake.Flavor.CHOCOLATE)
+                .setFrostingFlavor(Cake.Flavor.CHOCOLATE)
+                .setShape(Cake.Shape.CIRCLE)
+                .setSize(Cake.Size.LARGE)
+                .setColor(Cake.Color.BROWN)
+                .build();
 
+        Orderable redMylarBalloon = new Balloon.Builder()
+                .setColor(Balloon.Color.RED)
+                .setMaterial(Balloon.Material.MYLAR)
+                .setNumber(4)
+                .build();
+
+        OrderProcessor partyOne = new OrderProcessor(orderDispatcher);
+        partyOne.addItems(redMylarBalloon, smallVanillaCake);
+        partyOne.processOrder();
+
+        Orderable mediumChocolateCake = new Cake.Builder()
+                .setFlavor(Cake.Flavor.VANILLA)
+                .setFrostingFlavor(Cake.Flavor.CHOCOLATE)
+                .setShape(Cake.Shape.SQUARE)
+                .setSize(Cake.Size.MEDIUM)
+                .setColor(Cake.Color.BROWN)
+                .build();
+
+        Orderable blueLatexBalloon = new Balloon.Builder()
+                .setColor(Balloon.Color.BLUE)
+                .setMaterial(Balloon.Material.LATEX)
+                .setNumber(7)
+                .build();
+
+        OrderProcessor partyTwo = new OrderProcessor(orderDispatcher);
+        partyTwo.addItems(blueLatexBalloon, mediumChocolateCake);
+        partyTwo.processOrder();
+
+        Orderable largeChocolateCake = new Cake.Builder()
+                .setFlavor(Cake.Flavor.VANILLA)
+                .setFrostingFlavor(Cake.Flavor.VANILLA)
+                .setShape(Cake.Shape.SQUARE)
+                .setSize(Cake.Size.SMALL)
+                .setColor(Cake.Color.YELLOW)
+                .build();
+
+        Orderable yellowMylarBalloon = new Balloon.Builder()
+                .setColor(Balloon.Color.YELLOW)
+                .setMaterial(Balloon.Material.MYLAR)
+                .setNumber(4)
+                .build();
+
+        OrderProcessor partyThree = new OrderProcessor(orderDispatcher);
+        partyThree.addItems(yellowMylarBalloon, largeChocolateCake);
+        partyThree.processOrder();
     }
-
-    private static void order(String balloonColor, String material, String number, String flavor, String frostingFlavor, String shape, String size, String cakeColor){
-
-        orderBalloons(balloonColor, material, number);
-
-        orderCake(frostingFlavor, flavor, shape, size, cakeColor);
-    }
-
-    private static void orderBalloons(String balloonColor, String material, String number){
-
-        //for the purposes of this exercise, pretend this method works and adds balloons to the order
-        System.out.println("Balloons ordered; " + balloonColor + ", " + material  + ", " + number);
-
-    }
-
-    private static void orderCake(String flavor, String frostingFlavor, String shape, String size, String cakeColor){
-
-        //for the purposes of this exercise, pretend that this method adds a cake to the order
-        System.out.println("cake ordered; " + flavor + ", " + frostingFlavor  + ", " + shape + ", " + size + ", " + cakeColor);
-
-    }
-
 }
