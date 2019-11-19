@@ -21,7 +21,6 @@ All output is written to the console.
 
 ### Fixes I applied
 
-* Created `enums` for different properties of Cake and Balloon to avoid spelling and case mistakes.
-It also restricts the user from provided only supported values.
+* Created `enums` and classes for different properties of Cake and Balloon to avoid spelling and case mistakes. Classes aslo make it extendable. It also restricts the user from providing unsupported values.
 * Refactored code into small testable classes.
 * Changed the balloon quantity number to `int`   
