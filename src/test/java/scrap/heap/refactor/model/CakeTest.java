@@ -3,32 +3,45 @@ package scrap.heap.refactor.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import scrap.heap.refactor.constants.Color;
+import scrap.heap.refactor.constants.Size;
+import scrap.heap.refactor.model.cake.Cake;
+import scrap.heap.refactor.model.flavor.Chocolate;
+import scrap.heap.refactor.model.flavor.Flavor;
+import scrap.heap.refactor.model.flavor.Vanilla;
+import scrap.heap.refactor.model.shape.Shape;
+import scrap.heap.refactor.model.shape.Square;
 
 public class CakeTest {
-    Cake subject;
+    private Cake mSubject;
+    private Flavor mChocolate, mVanilla;
+    private Shape mSquare;
 
     @Before
     public void setUp() {
-        subject = new Cake.Builder()
-                .setFlavor(Cake.Flavor.CHOCOLATE)
-                .setFrostingFlavor(Cake.Flavor.VANILLA)
-                .setColor(Cake.Color.BROWN)
-                .setShape(Cake.Shape.SQUARE)
-                .setSize(Cake.Size.LARGE)
+        mChocolate = new Chocolate();
+        mVanilla = new Vanilla();
+        mSquare = new Square();
+        mSubject = new Cake.Builder()
+                .setFlavor(mChocolate)
+                .setFrostingFlavor(mVanilla)
+                .setColor(Color.BROWN)
+                .setShape(mSquare)
+                .setSize(Size.LARGE)
                 .build();
     }
 
     @Test
     public void testCakeBuilderCorrectlyBuildsCake() {
-        Assert.assertTrue(subject.getFlavor().equals(Cake.Flavor.CHOCOLATE));
-        Assert.assertTrue(subject.getFrostingFlavor().equals(Cake.Flavor.VANILLA));
-        Assert.assertTrue(subject.getColor().equals(Cake.Color.BROWN));
-        Assert.assertTrue(subject.getShape().equals(Cake.Shape.SQUARE));
-        Assert.assertTrue(subject.getSize().equals(Cake.Size.LARGE));
+        Assert.assertTrue(mSubject.getFlavor().getName().equals(mChocolate.getName()));
+        Assert.assertTrue(mSubject.getFrostingFlavor().getName().equals(mVanilla.getName()));
+        Assert.assertTrue(mSubject.getColor().equals(Color.BROWN));
+        Assert.assertTrue(mSubject.getShape().getName().equals(mSquare.getName()));
+        Assert.assertTrue(mSubject.getSize().equals(Size.LARGE));
     }
 
     @Test
     public void testItReturnsCorrectOrderData() {
-        Assert.assertEquals("cake ordered; chocolate, vanilla, square, large, brown", subject.getOrderData());
+        Assert.assertEquals("cake ordered; chocolate, vanilla, square, large, brown", mSubject.getOrderData());
     }
 }

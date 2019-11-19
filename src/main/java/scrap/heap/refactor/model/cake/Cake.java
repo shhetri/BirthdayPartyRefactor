@@ -1,4 +1,10 @@
-package scrap.heap.refactor.model;
+package scrap.heap.refactor.model.cake;
+
+import scrap.heap.refactor.constants.Color;
+import scrap.heap.refactor.constants.Size;
+import scrap.heap.refactor.model.flavor.Flavor;
+import scrap.heap.refactor.model.shape.Shape;
+import scrap.heap.refactor.order.Orderable;
 
 public class Cake extends Orderable {
     private final Flavor mFlavor;
@@ -10,11 +16,11 @@ public class Cake extends Orderable {
     /**
      * Making constructor private to force use the builder
      *
-     * @param flavor Flavor of cake
+     * @param flavor         Flavor of cake
      * @param frostingFlavor Frosting flavor of cake
-     * @param shape Shape of cake
-     * @param size Size of cake
-     * @param color color of cake
+     * @param shape          Shape of cake
+     * @param size           Size of cake
+     * @param color          color of cake
      */
     private Cake(Flavor flavor, Flavor frostingFlavor, Shape shape, Size size, Color color) {
         mFlavor = flavor;
@@ -44,9 +50,17 @@ public class Cake extends Orderable {
         return mColor;
     }
 
+    /**
+     * We can remove this method from Orderable and create an IOrderDataProvider and
+     * corresponding implementation classes that have a single responsibility
+     * of returning the order data. For the simplicity of the exercise I am keeping it here
+     *
+     * Get the order data
+     * @return String
+     */
     @Override
     public String getOrderData() {
-        return "cake ordered; " + mFlavor + ", " + mFrostingFlavor + ", " + mShape + ", " + mSize + ", " + mColor;
+        return "cake ordered; " + mFlavor.getName() + ", " + mFrostingFlavor.getName() + ", " + mShape.getName() + ", " + mSize + ", " + mColor;
     }
 
     public static class Builder {
@@ -76,6 +90,13 @@ public class Cake extends Orderable {
             return this;
         }
 
+        /**
+         * We will have to add validation logic here to check if the provided color is supported
+         * by this class or not as we made the Color enum same for Balloon and Cake. For simplicity of this exercise
+         * I have not added the validation logic.
+         * @param color Color of the Cake
+         * @return Builder
+         */
         public Builder setColor(Color color) {
             mColor = color;
             return this;
@@ -83,69 +104,6 @@ public class Cake extends Orderable {
 
         public Cake build() {
             return new Cake(mFlavor, mFrostingFlavor, mShape, mSize, mColor);
-        }
-    }
-
-    /**
-     * Color only applicable to Cake.
-     */
-    public enum Color {
-        BROWN("brown"), YELLOW("yellow");
-
-        private String mName;
-
-        Color(String name) {
-            mName = name;
-        }
-
-        @Override
-        public String toString() {
-            return mName;
-        }
-    }
-
-    public enum Size {
-        LARGE("large"), MEDIUM("medium"), SMALL("small");
-
-        private String mSize;
-
-        Size(String size) {
-            mSize = size;
-        }
-
-        @Override
-        public String toString() {
-            return mSize;
-        }
-    }
-
-    public enum Shape {
-        CIRCLE("circle"), SQUARE("square");
-
-        private String mShape;
-
-        Shape(String shape) {
-            mShape = shape;
-        }
-
-        @Override
-        public String toString() {
-            return mShape;
-        }
-    }
-
-    public enum Flavor {
-        VANILLA("vanilla"), CHOCOLATE("chocolate");
-
-        private String mFlavor;
-
-        Flavor(String flavor) {
-            mFlavor = flavor;
-        }
-
-        @Override
-        public String toString() {
-            return mFlavor;
         }
     }
 }

@@ -1,10 +1,20 @@
 package scrap.heap.refactor;
 
+import scrap.heap.refactor.constants.Color;
+import scrap.heap.refactor.constants.Size;
 import scrap.heap.refactor.dispatcher.IOrderDispatcher;
 import scrap.heap.refactor.dispatcher.OrderDispatcherFactory;
-import scrap.heap.refactor.model.Balloon;
-import scrap.heap.refactor.model.Cake;
-import scrap.heap.refactor.model.Orderable;
+import scrap.heap.refactor.model.balloon.Balloon;
+import scrap.heap.refactor.model.cake.Cake;
+import scrap.heap.refactor.model.flavor.Chocolate;
+import scrap.heap.refactor.model.flavor.Flavor;
+import scrap.heap.refactor.model.flavor.Vanilla;
+import scrap.heap.refactor.model.material.Latex;
+import scrap.heap.refactor.model.material.MyLar;
+import scrap.heap.refactor.model.shape.Circle;
+import scrap.heap.refactor.model.shape.Square;
+import scrap.heap.refactor.order.Order;
+import scrap.heap.refactor.order.Orderable;
 import scrap.heap.refactor.processor.OrderProcessor;
 
 public class App {
@@ -12,57 +22,60 @@ public class App {
         IOrderDispatcher orderDispatcher = OrderDispatcherFactory.getDispatcher(OrderDispatcherFactory.Type.DEFAULT);
 
         Orderable smallVanillaCake = new Cake.Builder()
-                .setFlavor(Cake.Flavor.CHOCOLATE)
-                .setFrostingFlavor(Cake.Flavor.CHOCOLATE)
-                .setShape(Cake.Shape.CIRCLE)
-                .setSize(Cake.Size.LARGE)
-                .setColor(Cake.Color.BROWN)
+                .setFlavor(new Chocolate())
+                .setFrostingFlavor(new Chocolate())
+                .setShape(new Circle())
+                .setSize(Size.LARGE)
+                .setColor(Color.BROWN)
                 .build();
 
         Orderable redMylarBalloon = new Balloon.Builder()
-                .setColor(Balloon.Color.RED)
-                .setMaterial(Balloon.Material.MYLAR)
+                .setColor(Color.RED)
+                .setMaterial(new MyLar())
                 .setNumber(4)
                 .build();
 
         OrderProcessor partyOne = new OrderProcessor(orderDispatcher);
-        partyOne.addItems(redMylarBalloon, smallVanillaCake);
-        partyOne.processOrder();
+        Order orderOne = new Order();
+        orderOne.addItems(redMylarBalloon, smallVanillaCake);
+        partyOne.processOrder(orderOne);
 
         Orderable mediumChocolateCake = new Cake.Builder()
-                .setFlavor(Cake.Flavor.VANILLA)
-                .setFrostingFlavor(Cake.Flavor.CHOCOLATE)
-                .setShape(Cake.Shape.SQUARE)
-                .setSize(Cake.Size.MEDIUM)
-                .setColor(Cake.Color.BROWN)
+                .setFlavor(new Vanilla())
+                .setFrostingFlavor(new Chocolate())
+                .setShape(new Square())
+                .setSize(Size.MEDIUM)
+                .setColor(Color.BROWN)
                 .build();
 
         Orderable blueLatexBalloon = new Balloon.Builder()
-                .setColor(Balloon.Color.BLUE)
-                .setMaterial(Balloon.Material.LATEX)
+                .setColor(Color.BLUE)
+                .setMaterial(new Latex())
                 .setNumber(7)
                 .build();
 
         OrderProcessor partyTwo = new OrderProcessor(orderDispatcher);
-        partyTwo.addItems(blueLatexBalloon, mediumChocolateCake);
-        partyTwo.processOrder();
+        Order orderTwo = new Order();
+        orderTwo.addItems(blueLatexBalloon, mediumChocolateCake);
+        partyTwo.processOrder(orderTwo);
 
         Orderable largeChocolateCake = new Cake.Builder()
-                .setFlavor(Cake.Flavor.VANILLA)
-                .setFrostingFlavor(Cake.Flavor.VANILLA)
-                .setShape(Cake.Shape.SQUARE)
-                .setSize(Cake.Size.SMALL)
-                .setColor(Cake.Color.YELLOW)
+                .setFlavor(new Vanilla())
+                .setFrostingFlavor(new Vanilla())
+                .setShape(new Square())
+                .setSize(Size.SMALL)
+                .setColor(Color.YELLOW)
                 .build();
 
         Orderable yellowMylarBalloon = new Balloon.Builder()
-                .setColor(Balloon.Color.YELLOW)
-                .setMaterial(Balloon.Material.MYLAR)
+                .setColor(Color.YELLOW)
+                .setMaterial(new MyLar())
                 .setNumber(4)
                 .build();
 
         OrderProcessor partyThree = new OrderProcessor(orderDispatcher);
-        partyThree.addItems(yellowMylarBalloon, largeChocolateCake);
-        partyThree.processOrder();
+        Order orderThree = new Order();
+        orderThree.addItems(yellowMylarBalloon, largeChocolateCake);
+        partyThree.processOrder(orderThree);
     }
 }

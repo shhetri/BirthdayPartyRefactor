@@ -1,9 +1,11 @@
 package scrap.heap.refactor.dispatcher;
 
+import scrap.heap.refactor.order.Orderable;
+
 public interface IOrderDispatcher {
     /**
-     * Dispatch the order
-     * @param orderData The data of the order
+     * Dispatch order of an item
+     * @param item Order Item to dispatch
      */
-    void dispatchOrder(String orderData);
+    void dispatch(Orderable item);
 }
